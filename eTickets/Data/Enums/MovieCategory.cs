@@ -13,6 +13,7 @@ namespace eTickets.Data
         Horror,
         Documentary,
         Romance,
-        Thriller
+        Thriller,
+        Cartoon
     }
 }
