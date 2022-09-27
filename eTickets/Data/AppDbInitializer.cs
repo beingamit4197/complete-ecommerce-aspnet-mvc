@@ -39,7 +39,7 @@ namespace eTickets.Data
                         new Cinema()
                         {
                             Name = "Eros International",
-                            Logo = "https://static.wikia.nocookie.net/logopedia/images/d/d5/Eros_International.svg/revision/latest?cb=20200831194358",
+                            Logo = "https://www.adgully.com/img/800/201701/erosintl.jpg",
                             Description = "A production house so profitable that it’s listed in the London Stock Exchange and the Bombay Stock Exchange. Well, that’s Eros for you. If you release your film under this banner, chances are that they’ll distribute your film to 50 other nations, courtesy their wide distribution network."
                         },
                         new Cinema()
@@ -57,7 +57,7 @@ namespace eTickets.Data
                         new Cinema()
                         {
                             Name = "Rajshri Productions",
-                            Logo = "https://static.wikia.nocookie.net/logopedia/images/f/ff/Rajshri.jpeg/revision/latest?cb=20200228100657",
+                            Logo = "https://jobs.socialsamosa.com/wp-content/uploads/2018/10/rajshree-logo-sqr.png",
                             Description = "If production houses had brand ambassadors, Alok Nath would have been perfect for Rajshri Productions. Known to make films loaded with sanskaar and sanskriti , this banner has produced classics which every Indian dadaji would want to show his grandchildren. You’ll never have to think twice when you take your grandparents for a Rajshri film."
                         },
                         new Cinema()
