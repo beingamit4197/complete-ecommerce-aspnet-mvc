@@ -23,19 +23,22 @@ namespace eTickets.Controllers
             return View(data);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            var actorDetails = await _service.GetByIdAsync(id);
+
+            if (actorDetails == null) return View("NotFound");
+            return View(actorDetails);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("ProfilePictureURL,FullName,Bio")] Actor actor)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ProfilePictureURL,FullName,Bio")] Actor actor)
         {
             if (!ModelState.IsValid)
             {
                 return View(actor);
             }
-            await _service.AddAsync(actor);
+            await _service.UpdateAsync(id, actor);
             return RedirectToAction(nameof(Index));
 
         }
@@ -44,11 +47,8 @@ namespace eTickets.Controllers
         {
             var actorDetails = await _service.GetByIdAsync(id);
 
-            if (actorDetails == null) return View("Empty");
+            if (actorDetails == null) return View("NotFound");
             return View(actorDetails);
         }
     }
-
-
-
-}
+}       
