@@ -22,21 +22,11 @@ namespace eTickets.Data.Services
             await _context.SaveChangesAsync();
         }
 
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IEnumerable<Actor>> GetAllAsync()
-        {
-            var result = await _context.Actors.ToListAsync();
-            return result;
-        }
-
-        public async Task<Actor> GetByIdAsync(int id)
+        public async Task DeleteAsync(int id)
         {
             var result = await _context.Actors.FirstOrDefaultAsync(n => n.Id == id);
-            return result;
+            _context.Actors.Remove(result);
+            await _context.SaveChangesAsync();
         }
 
         public async Task <Actor> UpdateAsync(int id, Actor newActor)
