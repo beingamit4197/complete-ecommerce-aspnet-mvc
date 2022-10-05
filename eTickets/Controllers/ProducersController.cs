@@ -18,7 +18,7 @@ namespace eTickets.Controllers
         {
             _service = service;
         }
-        public async  Task<IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             var allProducers = await _service.GetAllAsync();
             return View(allProducers);
@@ -36,7 +36,7 @@ namespace eTickets.Controllers
 
         public IActionResult Create()
         {
-            return View();        
+            return View();
         }
 
         [HttpPost]
@@ -50,5 +50,25 @@ namespace eTickets.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var producerDetails = await _service.GetByIdAsync(id);
+
+            if (producerDetails == null) return View("NotFound");
+            return View(producerDetails);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ProfilePictureURL,FullName,Bio")] Producer producer)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(producer);
+            }
+            await _service.UpdateAsync(id, producer);
+            return RedirectToAction(nameof(Index));
+
+        }
     }
 }
