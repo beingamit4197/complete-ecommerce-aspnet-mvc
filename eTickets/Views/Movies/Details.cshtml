@@ -1,0 +1,113 @@
+﻿@model Movie
+
+@{
+    ViewData["Title"] = "Movie Details";
+}
+<head>
+    <style>
+        .textd {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .btn-sm {
+            font-size: 10px;
+            height: 30px;
+            width: 150px;
+        }
+
+        .btn-sm1 {
+            font-size: 10px;
+            height: 30px;
+            width: 100px;
+        }
+    </style>
+</head>
+
+<div class="row">
+   <div class="col-md-6 offset-3">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white" style="background-color: #677AEA;">
+                            <p class="card-text">
+                                <h5 class="card-title" style="font-size:15px;">
+                                    @Model.Name
+                                    <a class="text-white float-right" asp-action="Edit" asp-route-id="@Model.Id"><i class="bi bi-pencil-square"></i></a>
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="@Model.ImageURL" style="width:160px; height:300px;" alt="@Model.Name">
+                    </div>
+                    <div class="col-md-6 pb-lg-5 pt-4" style="max-block-size:40px">
+                        <div class="card-body" style="font-size: 10px; max-height:30px; padding: 0.25rem;">
+                            <p class="card-text textd" style="font-size:10px;">
+                                @Model.Cinema.Description
+                            </p>
+                            <p class="card-text " style="font-size:10px;">
+                                <b>Cinema: </b>
+                                <a asp-controller="Cinemas" asp-action="Details" asp-route-id="@Model.CinemaId">@Model.Cinema.Name</a>
+                            </p>
+                            <p class="card-text textd" style="font-size:10px;">
+                                <b>Producer: </b>
+                                <a asp-controller="Producers" asp-action="Details" asp-route-id="@Model.ProducerId">@Model.Producer.FullName</a>
+                            </p>
+                            <p class="card-text" style="font-size:10px;"><b>Category: </b>@Model.MovieCategory</p>
+                            <p class="card-text" style="font-size:10px;"><b>Start Date: </b>@Model.StartDate.ToString("dd MMM yy")</p>
+                            <p class="card-text" style="font-size:10px;"><b>End Date: </b>@Model.EndDate.ToString("dd MMM yy")</p>
+                            <p class="card-text" style="font-size:10px;">
+                                <b>Status: </b>
+                                @if (DateTime.Now >= Model.StartDate && DateTime.Now <= Model.EndDate)
+                                {
+                                    <span class="badge bg-success text-white">AVAILABLE</span>
+                                }
+                                else if (DateTime.Now > Model.EndDate)
+                                {
+                                    <span class="badge bg-danger text-white">EXPIRED</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-primary text-white">UPCOMING</span>
+                                }
+                            </p>
+                            <p class="card-text" style="font-size:10px;">
+                                <b>Actors: </b>
+                                    @foreach (var actor in Model.Actors_Movies)
+                                    {
+                                
+                                           @*<img class="border-info rounded-circle" src="@actor.Actor.ProfilePictureURL" style="max-width:150px;" />
+                                            <br />
+                                               *@
+                                            <a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.ActorId"> @actor.Actor.FullName</a>
+
+                                    }
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer ">
+                            <p class="card-text">
+                                <a class="btn btn-sm1 btn-outline-primary float-right" asp-action="Index">
+                                    Back to List
+                                </a>
+                                <a class="btn btn-sm btn-outline-success @((DateTime.Now > Model.EndDate) ? "disabled" : "")"
+                                   asp-controller="Orders"
+                                   asp-action="AddModelToShoppingCart"
+                                   asp-route-id="@Model.Id">
+                                    <i class="bi bi-cart-plus"></i> Add to Cart (Price @Model.Price.ToString("c"))
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+</div>
