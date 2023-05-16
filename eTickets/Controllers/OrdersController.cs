@@ -13,14 +13,12 @@ namespace eTickets.Controllers
     {
         private readonly IMoviesService _moviesService;
         private readonly ShoppingCart _shoppingCart;
-        private readonly IOrdersService _ordersService;
-        public OrdersController(IMoviesService moviesService, ShoppingCart shoppingCart, IOrdersService ordersService)
+        public OrdersController(IMoviesService moviesService, ShoppingCart shoppingCart)
         {
             _moviesService = moviesService;
             _shoppingCart = shoppingCart;
-            _ordersService = ordersService;
         }
-        public IActionResult ShoppingCart()
+        public IActionResult Index()
         {
             var items = _shoppingCart.GetShoppingCartItems();
             _shoppingCart.ShoppingCartItems = items;
